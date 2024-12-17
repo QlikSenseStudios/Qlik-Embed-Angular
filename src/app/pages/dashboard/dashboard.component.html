@@ -1,0 +1,37 @@
+<div cdkDropListGroup>
+  <app-dashboard-header />
+  <app-selection-bar />
+
+  <div
+    class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] auto-rows-[150px] gap-4 mb-4"
+  >
+    @for (widget of this.staticWidgets; track widget.id) {
+    <app-widget
+      [data]="widget"
+      cdkDropList
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListData]="widget.id"
+    />
+
+    }
+  </div>
+
+  <div
+    #dashboard
+    class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] auto-rows-[150px] gap-4"
+  >
+    @for (widget of store.addedWidgets(); track widget.id) {
+    <app-widget
+      [data]="widget"
+      cdkDropList
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListData]="widget.id"
+    />
+
+    }
+
+    <div cdkDropList (cdkDropListDropped)="drop($event)">
+      <div></div>
+    </div>
+  </div>
+</div>

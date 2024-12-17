@@ -1,0 +1,38 @@
+<a
+  mat-list-item
+  [style.--mat-list-list-item-leading-icon-start-space]="indentation()"
+  [routerLink]="routeHistory() + '/' + item().route"
+  (click)="nestedItemOpen.set(!nestedItemOpen())"
+  routerLinkActive
+  #rla="routerLinkActive"
+  [activated]="rla.isActive"
+>
+  <mat-icon
+    [fontSet]="rla.isActive ? 'material-icons' : 'material-icons-outlined'"
+    matListItemIcon
+    >{{ item().icon }}</mat-icon
+  >
+  @if(!collapsed()) {
+  <span matListItemTitle>{{ item().label }}</span>
+  } @if(item().subItems) {
+  <span matListItemMeta>
+    @if(nestedItemOpen()) {
+    <mat-icon>expand_less</mat-icon>
+    } @else {
+    <mat-icon>expand_more</mat-icon>
+    }
+  </span>
+  }
+</a>
+
+@if (nestedItemOpen() ) {
+<div @expandContractMenu>
+  @for(subItem of item().subItems; track subItem.route) {
+  <app-menu-item
+    [item]="subItem"
+    [routeHistory]="routeHistory() + '/' + item().route"
+    [collapsed]="collapsed()"
+  />
+  }
+</div>
+}
