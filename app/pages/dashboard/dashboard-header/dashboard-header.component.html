@@ -1,0 +1,19 @@
+<div class="flex flex-row items-center justify-between mb-4 position-relative">
+  <h2 class="text-2xl">Qlik Dashboard</h2>
+  @if (widgetsOpen()) {
+  <app-widgets-panel
+    cdkDropList
+    cdkDropListOrientation="vertical"
+    (cdkDropListDropped)="widgetDroppedInPanel($event)"
+    class="mat-elevation-z8"
+    cdkDrag
+  />
+  }
+  <button mat-flat-button (click)="widgetsOpen.set(!widgetsOpen())">
+    @if(widgetsOpen()) {
+    <mat-icon>close</mat-icon>
+    } @else {
+    <mat-icon>add_circle</mat-icon>
+    } Widgets
+  </button>
+</div>
